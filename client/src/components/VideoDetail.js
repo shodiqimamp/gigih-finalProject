@@ -33,7 +33,7 @@ function VideoDetail() {
   };
 
   const getProductsById = async () => {
-    fetch(`https://gigih-play-app.onrender.com/api/videos${videoId}/product`)
+    fetch(`https://gigih-play-app.onrender.com/api/videos/${videoId}/product`)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
