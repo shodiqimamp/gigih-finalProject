@@ -6,7 +6,7 @@ function VideoList() {
   const [videoList, setVideoList] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3080/api/videos")
+    fetch("https://gigih-play-app.onrender.com/api/videos")
       .then((response) => response.json())
       .then((data) => {
         setVideoList(data);

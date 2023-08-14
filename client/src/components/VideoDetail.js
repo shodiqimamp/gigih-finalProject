@@ -21,7 +21,7 @@ function VideoDetail() {
   });
 
   const getVideoById = async () => {
-    fetch(`http://localhost:3080/api/videos/${videoId}`)
+    fetch(`https://gigih-play-app.onrender.com/api/videos/${videoId}`)
       .then((response) => response.json())
       .then((data) => {
         setVideoData(data);
@@ -33,7 +33,7 @@ function VideoDetail() {
   };
 
   const getProductsById = async () => {
-    fetch(`http://localhost:3080/api/videos/${videoId}/product`)
+    fetch(`https://gigih-play-app.onrender.com/api/videos${videoId}/product`)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
@@ -44,7 +44,7 @@ function VideoDetail() {
   };
 
   const getComments = async () => {
-    fetch(`http://localhost:3080/api/videos/${videoId}/comments`)
+    fetch(`https://gigih-play-app.onrender.com/api/videos/${videoId}/comments`)
       .then((response) => response.json())
       .then((data) => {
         setComments(data);
@@ -56,7 +56,7 @@ function VideoDetail() {
 
   const addComment = async (name, comment) => {
     const response = await fetch(
-      `http://localhost:3080/api/videos/${videoId}/comments`,
+      `https://gigih-play-app.onrender.com/api/videos/${videoId}/comments`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
