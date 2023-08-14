@@ -1,0 +1,31 @@
+.main-container {
+    margin-left: 10px;
+    margin-bottom: 100px;
+}
+
+.topbar{
+    display: flex;
+    padding: 14px 30px;
+    background-color: #181818;
+}
+
+.topbar .logo h2 {
+    font-size: 25px;
+    margin-left: 10px;
+    color: rgb(10, 205, 10);
+    font-weight: bold;
+ }
+
+ .topbar .logo span {
+     font-size: 23px;
+     color: rgb(255, 255, 255);
+ }
+
+.topbar a {
+    text-decoration: none;
+    font-style: italic;
+  }
+
+.topbar a:hover {
+    color: #ffffff;
+}
