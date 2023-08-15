@@ -1,6 +1,6 @@
 ## FINAL PROJECT
 
-Description : This project was made to fulfill the Midterm Project Fullstack Engineer Track assignment from the GIGIH 3.0 program
+Description : This project was made to fulfill the Final Project Fullstack Engineer Track assignment from the GIGIH 3.0 program
 
 ## Table Of Content
 * [Database Structure](#database-structure)
@@ -23,23 +23,22 @@ The architectural database used in this project is `MongoDB`, this project have 
   title: String
   thumbnailUrl: String
   youtubeUrl: String
-  productId: String
-  comments: String
 },
 ```
 
 ### Comment Collection
 ```
 {
+  video_id: String
   name: String
   comment: String
   createdAt: Date
-  videoId: String
 }
 ```
 ### Product Collection
 ```
  {
+  video_id: String
   title: String
   price: Number
   link: String
@@ -47,22 +46,22 @@ The architectural database used in this project is `MongoDB`, this project have 
 ```
 
 ## API Structure
-The API in this project runs on a local server `http://localhost:3000/api`.
+The API in this project runs on a local server `http://localhost:3080/api`.
 
 ### 1. Product API
 
 ```
 API                | Controller Function
 
-GET: /product      | `controller.getAllProducts`
-POST: /product     | `controller.addProduct`
+GET: /videos/:id/product    | `controller.getProducts`
+POST: /videos/:id/product   | `controller.addProduct`
 ```
 ### 2. Video API
 
 ```
 API                | Controller Function
 
-GET: /videos       | `controller.getAllVideos`
+GET: /videos       | `controller.getVideos`
 GET: /videos/:id   | `controller.getVideoById`
 POST: /videos      | `controller.addVideo`
 ```
@@ -71,19 +70,19 @@ POST: /videos      | `controller.addVideo`
 ```
 API                             | Controller Function
 
-GET: /videos/:videoId/comments  | `controller.getCommentsByVideoId`
-POST: /videos/:videoId/comments | `controller.addComment`
+GET: /videos/:id/comments  | `controller.getComments`
+POST: /videos/:id/comments | `controller.addComment`
 ```
 ## API Request Response List
 
-### GET: /product
+### GET: /videos/:id/product 
 
 ----
 Return all videos from database
 
 * **URL Params**  
-  None
-* **Data Params**  
+  `:id`
+* **Data Params**
   None
 * **Headers**  
   Content-Type: application/json
@@ -92,10 +91,10 @@ Return all videos from database
   - Content: 
   ```
   {
-    message,
     data: [
         {
           _id,
+          video_id,
           title,
           price,
           link,
@@ -104,17 +103,19 @@ Return all videos from database
   }
   ```
 
-### POST: /product
+### POST: /videos/:id/product
 
 ----
 Creates a new Product and returns the new object.
 
 * **URL Params**  
-  None
+  `:id`
 * **Data Params**  
   ```
-  title: String
+  video_id: String
+  name: String
   price: Number
+  img_url: String
   link: String
   ```
 * **Headers**  
@@ -124,12 +125,13 @@ Creates a new Product and returns the new object.
   - Content: 
   ```
   {
-    message,
     data: [
         {
-            productId
-            title
+            _id
+            video_id
+            name
             price
+            img_url
             link
         }
     ]
@@ -155,18 +157,12 @@ Return all videos from database
   - Content: 
   ```
   {
-    message,
     data: [
         {
             _id,
             title,
             thumbnailUrl,
             youtubeUrl,
-            productId,
-            comments: [
-                commentId,
-                commentId,
-            ],
         }
     ]
   }
@@ -190,30 +186,12 @@ Return specific video from database
   - Content: 
   ```
   {
-    message,
     data: [
         {
           _id,
           title,
           thumbnailUrl,
           youtubeUrl,
-          products: [
-            {
-                  _id,
-                  title,
-                  price,
-                  link,
-            }
-          ],
-        comments: [
-            {
-                  _id,
-                  name,
-                  comment,
-                  videoId,
-                  createdAt,
-            }
-          ]
         }
     ]
   }
@@ -231,7 +209,6 @@ Creates a new Video and returns the new object.
   title: String,
   youtubeUrl: String,
   thumbnailUrl: String,
-  productId: [ObjectId],
   ```
 * **Headers**  
   Content-Type: application/json
@@ -240,14 +217,12 @@ Creates a new Video and returns the new object.
   - Content: 
   ```
   {
-    message,
     data: [
         {
             videoId,
             title,
             youtubeUrl,
             thumbnailUrl,
-            productId": []
         }
     ]
   }
@@ -256,13 +231,13 @@ Creates a new Video and returns the new object.
   - Code: 500
   - Content: { error: "Internal Server Error" }
   
-### GET: /videos/:videoId/comments
+### GET: /videos/:id/comments
 ----
 Return comment with specified Video Id from database
 
 * **URL Params**  
   ```
-  :videoId
+  :id
   ```
 * **Data Params**  
   None
@@ -273,20 +248,11 @@ Return comment with specified Video Id from database
   - Content: 
   ```
   {
-    message,
     data: [
         {
             _id,
             name,
             comment,
-            videoId : {
-              _id,
-              title,
-              thumbnailUrl,
-              youtubeUrl,
-              productId,
-              comments,
-            },
             createdAt,
         }
     ]
@@ -300,16 +266,14 @@ Creates a new Comment and returns the new object.
 
 * **URL Params**  
   ```
-  :videoId
+  :id
   ```
 * **Data Params**  
   ```
   name: String,
   comment: String,
   createdAt:Date,
-  videoId: {
-    ObjectId,
-  },
+  video_id: String
   ```
 * **Headers**  
   Content-Type: application/json
@@ -318,13 +282,12 @@ Creates a new Comment and returns the new object.
   - Content: 
   ```
   {
-    message,
     data: [
         {
+            _id,
             name,
             comment,
             videoId,
-            _id,
             createdAt,
         }
     ]
@@ -335,6 +298,7 @@ Creates a new Comment and returns the new object.
   - Content: { error: "Internal Server Error" }
   
 ## How To Run In Local
+## A. Backend
 ### 1. Set Up The Project
   * After download or clone this project, open the project folder and run this commands in terminal/cmd to install the dependencies
     ```
@@ -346,7 +310,7 @@ Creates a new Comment and returns the new object.
     ```
 ### 2. Set Up The Database
   * Before you run the project, you need to connect and create the **database** and **collections**, you can see the database structure above or [Click Here](#database-structure).
-  * Create `.env` file and put this code `DATABASE_URL = mongodb://localhost:27017/yourDatabaseName`, dont forget to change the database name with your database name.
+  * Create `.env` file and put this code `DATABASE_URL = mongodb://localhost:27017/yourDatabaseName`, dont forget to change the database name with your local database or with your mongoDb atlas connection string.
     
 ### 3. Run The Project
   * Run the project with this command.
@@ -355,37 +319,57 @@ Creates a new Comment and returns the new object.
     ```
   * Open your browser and enter link, see the API Structure [Here](#api-structure).
     ```
-    http://localhost:3000/api/video
+    http://localhost:3080/api/video
     ```
-  * OPTIONAL: you can run the project with postman, you can check this project postman API documentations [Here](https://www.postman.com/shodiqimamp/workspace/gigih-3-0/collection/13102716-fce5fda1-d33c-419d-be3a-329055bc5e3b?action=share&creator=13102716).
-  * Add Product data to database with this POST API `http://localhost:3000/api/product` using this command in your terminal/bash/cmd.
-    ```
-    curl -X POST -H "Content-Type: application/json" -d '{
-    "title": "Judul Product",
-    "price": 500000,
-    "link": "https://www.tokopedia.com/"
-    }' http://localhost:3000/api/product
-    ```
-  * Get all data Products from Database with this API link `http://localhost:3000/api/product` on your browser or postman.
-  * Add Video data to database with this POST API `http://localhost:3000/api/videos` using this command in your terminal/bash/cmd. Don't forget to change value in `productId` field with `_id` from Product Collection.
+  * Add Video data to database with this POST API `http://localhost:3080/api/videos` using this command in your terminal/bash/cmd.
     ```
     curl -X POST -H "Content-Type: application/json" -d '{
-    "title": "Judul Video",
-    "youtubeUrl": "https://www.youtube.com/",
-    "thumbnailUrl": "https://example.com/thumbnail.jpg",
-    "productId": "enter id Product"
-    }' http://localhost:3000/api/videos
+    "title": "Laptop Murah utk Content Creation, CAD, Edit Video, 3D Animasi & Pekerjaan Berat, Di bawah 15 Juta",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ivrWF-Bps54",
+    "thumbnailUrl": "https://i.ytimg.com/vi/ivrWF-Bps54/maxresdefault.jpg"
+    }' http://localhost:3080/api/videos
     ```
-  * Get all data Videos from Database with this API link `http://localhost:3000/api/videos` on your browser or postman.
-  * Get specific data Video by Id from Database with this API link `http://localhost:3000/api/videos/:videoId` on your browser or postman and dont forget to change param `:videoId`.
-  * Add Comment data to database with this POST API `http://localhost:3000/api/videos/:videoId/comments` using this command in your terminal/bash/cmd. Dont forget to change param `:videoId` and value in `videoId` field with `_id` from video collection.
-  ```
-    curl -X POST -H "Content-Type: application/json" -d '{
-    "name": "My Name",
-    "comment": "This Comment",
-    "videoId": "enter id Video"
-    }' http://localhost:3000/api/videos/:videoId/comments
-  ```
-  * Get all data Comments Video from Database with this API link `http://localhost:3000/api/videos/:videoId/comments` on your browser or postman.
-  * Get specific data Video by Id from Database with this API link `http://localhost:3000/api/videos/:videoId` on your browser or postman and dont forget to change param `:videoId`.
+  * Get all data Videos from Database with this API link `http://localhost:3080/api/videos` on your browser or postman.
+  * Get specific data Video by Id from Database with this API link `http://localhost:3080/api/videos/:videoId` on your browser or postman and dont forget to change param `:videoId`.
+   
+  * Add Product data to database with this POST API `http://localhost:3080/api/videos/:id/product` using this command in your terminal/bash/cmd, and dont forget to change param `:id`.
+    ```
+    "video_id": "[change with video_id from videos collection that you want]",
+    "name": "Laptop Gaming Axioo Pongo 5 - RTX3070 I5 11400 32GB 512SSD 16inch 100SRGB - Non Bundle, 16 GB",
+    "price": 13199000,
+    "img_url": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/8/14/d173f9fb-4855-4706-a4c3-01094efdbf13.png",
+    "link": "https://tokopedia.link/gJrhNnCVfCb"
+    }' http://localhost:3080/api/videos/:id/product
+    ```
+  * Get all data Products from Database with this API link `http://localhost:3080/api/videos/:id/product` on your browser or postman, and dont forget to change param `:id`.
     
+  * Add Comment data to database with this POST API `http://localhost:3080/api/videos/:id/comments` using this command in your terminal/bash/cmd. Dont forget to change param `:id` and value in `video_id` field with `_id` from video collection.
+  ```
+  curl -X POST -H "Content-Type: application/json" -d '{
+  "video_id": "[change with video_id from videos collection that you want]",
+  "name": "Imam",
+  "comment": "Keren juga laptopnya"
+ }' http://localhost:3080/api/videos/:id/comments
+  ```
+  * Get specific data Video by Id from Database with this API link `http://localhost:3080/api/videos/:id` on your browser or postman and dont forget to change param `:id`.
+
+## B. Frontend
+### 1. Set Up The Project
+  * After download or clone this project, open the project folder and run this commands in terminal/cmd to install the dependencies
+    ```
+    npm install
+    ```
+* In the project file `(VideoDetail & Homepage)`, change the API with your backend API. 
+    ```
+    http://localhost:3080/api/videos
+    ```
+    
+### 2. Run The Project
+  * Run the project with this command.
+    ```
+    npm start
+    ```
+  * Open your browser and enter this link
+    ```
+    http://localhost:3000/
+    ```
