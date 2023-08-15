@@ -63,7 +63,7 @@ body {
 
 .video-item .play .fa:hover {
     opacity: 1;
-    transform: translateY(-30px);
+    transform: translateY(-40px);
 }
 .video-item h4{
     color: #ffffff;

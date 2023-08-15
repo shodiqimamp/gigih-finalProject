@@ -21,17 +21,16 @@ function VideoList() {
       <div className="video-list">
         {videoList.map((video) => (
           <div key={video._id} className="video-item">
-            <img
-              src={video.thumbnailUrl}
-              alt={`Thumbnail for ${video.title}`}
-            />
-
-            <h4>{video.title}</h4>
-            <div className="play">
-              <a href={`/videos/${video._id}`}>
+            <a href={`/videos/${video._id}`}>
+              <img
+                src={video.thumbnailUrl}
+                alt={`Thumbnail for ${video.title}`}
+              />
+              <h4>{video.title}</h4>
+              <div className="play">
                 <span className="fa fa-play"></span>
-              </a>
-            </div>
+              </div>
+            </a>
           </div>
         ))}
       </div>
