@@ -87,8 +87,8 @@ function VideoDetail() {
     <div>
       <Topbar />
       <div className="flex flex-col w-full h-full px-5 mx-auto space-x-2 sm:px-10 xl:px-20 xl:flex-row">
-        <div className="flex flex-col py-6 mt-5 border border-gray-200 rounded-lg">
-          <div className="flex flex-row flex-grow h-full overflow-x-auto xl:overflow-y-auto xl:h-0 xl:flex-col scrollbar-thin scrollbar-thumb-slate-500 scrollbar-track-slate-200">
+        <div className="flex flex-col py-3 mt-5 border border-gray-200 rounded-lg">
+          <div className="flex flex-row flex-grow h-full overflow-x-auto xl:overflow-y-auto xl:h-0 xl:flex-col scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-200">
             {products.map((product) => (
               <Product key={product.id} product={product} />
             ))}
