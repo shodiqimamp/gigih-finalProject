@@ -17,7 +17,7 @@ function CommentForm({ handleSubmit }) {
         type="text"
         value={name}
         onChange={(e) => setUsername(e.target.value)}
-        className="w-full text-sm px-4 mb-2 text-gray-900 bg-white border border-gray-200 rounded-lg focus:ring-0 focus:border-gray-500 focus:outline-none"
+        className="w-full text-sm p-2 mb-2 text-gray-900 bg-white border border-gray-200 rounded-lg focus:ring-0 focus:border-gray-500 focus:outline-none"
         placeholder="Name"
         required
       ></input>
