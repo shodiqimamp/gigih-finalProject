@@ -9,10 +9,12 @@ Description : This project was made to fulfill the Final Project Fullstack Engin
     * [Video API](#2-video-api)
     * [Comment API](#3-comment-api)
 * [API Request Response List](#api-request-response-list)
-* [How To Run](#how-to-run-in-local)
-    * [Set Up The Project](#1-set-up-the-project)
-    * [Set Up The Database](#2-set-up-the-database)
-    * [Run The Project](#3-run-the-project)
+* [How To Run in Local](#how-to-run-in-local)
+   * [Backend](#backend)
+      * [Set Up The Project](#1-set-up-the-project)
+      * [Set Up The Database](#2-set-up-the-database)
+      * [Run The Project](#3-run-the-project)
+   * [Frontend](#backend)
 
 ## Database Structure
 The architectural database used in this project is `MongoDB`, this project have 3 Collections, video, comment, and product.
