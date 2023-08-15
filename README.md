@@ -301,6 +301,7 @@ Creates a new Comment and returns the new object.
   
 ## How To Run In Local
 ## A. Backend
+----
 ### 1. Set Up The Project
   * After download or clone this project, open the project folder and run this commands in terminal/cmd to install the dependencies
     ```
@@ -356,6 +357,7 @@ Creates a new Comment and returns the new object.
   * Get specific data Video by Id from Database with this API link `http://localhost:3080/api/videos/:id` on your browser or postman and dont forget to change param `:id`.
 
 ## B. Frontend
+----
 ### 1. Set Up The Project
   * After download or clone this project, open the project folder and run this commands in terminal/cmd to install the dependencies
     ```
